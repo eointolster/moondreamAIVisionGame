@@ -23,5 +23,5 @@ next you will
 it will load the index.html in the templates folder
 use the main.js in the static folder
 and the images in the static\images\ folder
-
+127.0.0.1:5000
 That should all work for you. At least I hope so :)
