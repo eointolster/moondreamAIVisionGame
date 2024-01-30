@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI VISION GAME</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        img.thumbnail {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        img.thumbnail:hover {
+            transform: scale(1.1);
+        }
+
+        #scoreCard {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        #prediction {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #banner {
+            background-color: #0011ff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">AI VISION GAME</div>
+
+    <div id="imageContainer"></div>
+
+    <form id="predictForm" enctype="multipart/form-data">
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="button" onclick="predict()">Predict</button>
+        <button type="button" onclick="randomPredict()">Random Predict</button>
+    </form>
+
+    <p id="prediction">Prediction will appear here...</p>
+
+    <div id="scoreCard">
+        <h2>Scores</h2>
+        <p id="correctScore">Correct: 0</p>
+        <p id="incorrectScore">Incorrect: 0</p>
+        <button type="button" onclick="revealAnswer()">Reveal Answer</button>
+    </div>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>

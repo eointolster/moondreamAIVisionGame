@@ -1,0 +1,61 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch and display available images
+    fetch('/get_images')
+    .then(response => response.json())
+    .then(images => {
+        const imageContainer = document.getElementById('imageContainer');
+        images.forEach(image => {
+            // Create img element
+            const imgElement = document.createElement('img');
+            // Adjust the image source to use url_for
+            imgElement.src = `/static/images/${image}`;
+            imgElement.classList.add('thumbnail');        
+            // Append to image container
+            imageContainer.appendChild(imgElement);
+        });
+    });
+
+    // Handle image prediction
+    document.getElementById('predictForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('/predict', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(prediction => {
+            // Set innerText to the prediction text, not the object
+            document.getElementById('prediction').innerText = prediction.prediction;
+        });
+    });
+
+    // Define the predict function
+    window.predict = function() {
+        const imageInput = document.getElementById('imageInput');
+        const formData = new FormData();
+        formData.append('image', imageInput.files[0]);
+
+        fetch('/predict', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(prediction => {
+            document.getElementById('prediction').innerText = prediction;
+        });
+    };
+
+    window.randomPredict = function() {
+        fetch('/get_images')
+        .then(response => response.json())
+        .then(images => {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const imageFilename = images[randomIndex];
+            document.getElementById('prediction').innerText = 'Predicting...';
+            // Now you need to implement a way to get the actual image file based on the filename
+            // Or adjust your /predict route to handle a filename instead of a file
+        });
+    };
+});
